@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//import '../styles/progress.less';
+import '../styles/progress.less';
 
 export default class Progress extends Component {
 
@@ -14,7 +14,7 @@ export default class Progress extends Component {
     render() {
         return (
             <div className="component-progress row">
-                {this.props.progress}s
+                <div className="progress"></div>
             </div>
         );
     }

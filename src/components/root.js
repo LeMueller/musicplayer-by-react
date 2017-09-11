@@ -12,7 +12,7 @@ export default class Root extends Component{
 
 	componentDidMount(){
 		let player = $('#player');
-		console.log('player.jPlayer::: '+ player.jPlayer);
+		//console.log('player.jPlayer::: '+ player.jPlayer);
 		player.jPlayer({
 			ready:function(){
 				$(this).jPlayer('setMedia',{
@@ -30,6 +30,11 @@ export default class Root extends Component{
 			//alert('e.jPlayer.status.currentTime::: ' + e.jPlayer.status.currentTime);
 		});
 		//alert("palyer");
+	}
+
+	
+	componentWillUnMount(){
+		$('#jPlayer').unbind($.jPlayer.event.timeupdate);
 	}
 
 	render(){
