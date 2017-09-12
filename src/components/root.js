@@ -26,8 +26,7 @@ export default class Root extends Component{
 		
 
 		$('#player').bind($.jPlayer.event.timeupdate,(e)=>{
-			this.setState({progress:Math.round(e.jPlayer.status.currentTime)});
-			//alert('e.jPlayer.status.currentTime::: ' + e.jPlayer.status.currentTime);
+			this.setState({progress:e.jPlayer.status.currentPercentAbsolute});
 		});
 		//alert("palyer");
 	}
@@ -37,11 +36,17 @@ export default class Root extends Component{
 		$('#jPlayer').unbind($.jPlayer.event.timeupdate);
 	}
 
+	//从子组件中获得值
+	progressChangeHandler(progress){
+		//console.log("from root widget::: " + progress);
+	}
+
 	render(){
 		return(
 			<div>
 				<Header />
-        		<Progress progress={this.state.progress}></Progress>
+        		<Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler}></Progress>
+
         	</div>
 		)
 	}
