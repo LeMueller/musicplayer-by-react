@@ -6,7 +6,7 @@ export default class Progress extends Component {
 
 
 	constructor(props){
-		super(props);
+        super(props);
         //let this in changeProgress(e) = this class, or this in changeProgress() is null
         this.changeProgress=this.changeProgress.bind(this);
 
@@ -14,6 +14,11 @@ export default class Progress extends Component {
 
 		}
 	}
+
+    //设置默认props
+    static defaultProps = {
+        barColor: '#2f9842'
+    }
 
     changeProgress(e){        
         let progressBar = this.refs.progressBar;
@@ -28,7 +33,7 @@ export default class Progress extends Component {
     render() {
         return (
             <div className="component-progress row" ref="progressBar" onClick={this.changeProgress}>
-                <div className="progress" style={{width: this.props.progress+'%'}} ></div>
+                <div className="progress" style={{width: this.props.progress+'%', background: this.props.barColor}} ></div>
             </div>
         );
     }
