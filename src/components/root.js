@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Header from './commen/header.js';
 import Player from './page/player.js';
+import {MUSIC_LIST} from '../config/musiclist';
 
 export default class Root extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-
+			currentMusicItem: MUSIC_LIST[0]
 		}
 	}
 
@@ -21,6 +22,7 @@ export default class Root extends Component{
 			wmode: 'window'
 		});
 
+
 	}
 
 	
@@ -32,7 +34,7 @@ export default class Root extends Component{
 		return(
 			<div>
 				<Header />
-        		<Player />
+        		<Player currentMusicItem={this.state.currentMusicItem}></Player>
 
         	</div>
 		)

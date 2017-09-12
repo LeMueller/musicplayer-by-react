@@ -38,10 +38,10 @@ export default class Player extends Component {
 				<h1 className="caption">My Favorite Music</h1>
 				<div className="mt20 row">
 					<div className = "controll-wrapper">
-						<h2 className="music-title">music-title</h2>
-						<h3 className="music-artist mt10">music-artist</h3>
+						<h2 className="music-title">{this.props.currentMusicItem.title}</h2>
+						<h3 className="music-artist mt10">{this.props.currentMusicItem.artist}</h3>
 						<div className="row mt20">
-							<div className="left-time -col-auto">left-time</div>
+							<div className="left-time -col-auto">-2:00</div>
 							<div className="volume-container">
 								<i className="icon-volume rt style={{top:5, left:-5}}"></i>
 								<div className="volume-wrapper">
@@ -50,7 +50,10 @@ export default class Player extends Component {
 							</div>
 						</div>
 						<div style={{height:10, lineHeight:'10px'}}>
-							播放进度
+							<Progress 
+								progress={this.state.progress}
+								onProgressChange={this.progressChangeHandler}>
+							</Progress>
 						</div>
 						<div className="mt35 row">
 							<div>
@@ -64,7 +67,7 @@ export default class Player extends Component {
 						</div>
 					</div>
 					<div className="-col-auto cover">
-						<img src="" alt="封面"/>
+						<img src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title}/>
 					</div>
 				</div>
 			</div>
