@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Header from './header.js';
-import Progress from './progress.js';
+import Header from './commen/header.js';
+import Progress from './commen/progress.js';
 
 let duration = null;
 

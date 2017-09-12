@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../styles/progress.less';
+import '../../styles/progress.less';
 
 export default class Progress extends Component {
 
