@@ -59,12 +59,12 @@ export default class Player extends Component {
 								<i className="icon next ml20"></i>
 							</div>
 							<div className="-col-auto">
-								<i className="repeat"></i>
+								<i className="icon repeat-cycle"></i>
 							</div>
 						</div>
 					</div>
 					<div className="-col-auto cover">
-						<img src="" alt=""/>
+						<img src="" alt="封面"/>
 					</div>
 				</div>
 			</div>
