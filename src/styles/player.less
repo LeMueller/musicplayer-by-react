@@ -22,16 +22,28 @@
 	.volume-container {
 		position: relative;
 		left: 20px;
-		top: -3px;
+		top: 0px;
 	}
 	.volume-container .volume-wrapper {
 		opacity: 0;
 		transition: opacity .5s linear;
 		color:black;
+
+		position: relative;
+		left: 10px;
+		top: -3px;
 	}
 	.volume-container:hover .volume-wrapper {
 		opacity: 1;
 	}
+
+	.progress-container {
+		height:10;
+		lineHeight:'10px';
+		margin-top: 25px;
+
+	}
+
 	.music-title {
 	    font-size: 25px;
 	    font-weight: 400;

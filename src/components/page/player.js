@@ -27,9 +27,14 @@ export default class Player extends Component {
 	}
 
 	//从子组件中获得值
+	//change progress
 	progressChangeHandler(progress){
 		//console.log("from root widget::: " + progress);
 		$('#player').jPlayer('play', duration * progress); //play调用了timeupdate，导致state更改，ui更改
+	}
+	//change volume
+	volumeChangeHandler(progress){
+		
 	}
 
 	render(){
@@ -43,13 +48,16 @@ export default class Player extends Component {
 						<div className="row mt20">
 							<div className="left-time -col-auto">-2:00</div>
 							<div className="volume-container">
-								<i className="icon-volume rt style={{top:5, left:-5}}"></i>
+								<i className="icon-volume rt"></i>
 								<div className="volume-wrapper">
-									音量控制
+									<Progress 
+										progress="20%" 
+										onProgressChange={this.changeVolumeHandler}
+										barColor="#aaa"></Progress>
 								</div>
 							</div>
 						</div>
-						<div style={{height:10, lineHeight:'10px'}}>
+						<div className="progress-container">
 							<Progress 
 								progress={this.state.progress}
 								onProgressChange={this.progressChangeHandler}>

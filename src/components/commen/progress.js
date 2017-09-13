@@ -24,7 +24,7 @@ export default class Progress extends Component {
         let progressBar = this.refs.progressBar;
         
         let progress = (e.clientX - progressBar.getBoundingClientRect().left)/progressBar.clientWidth;
-        //console.log("progress::: "+progress);
+        //alert("progress::: "+progress);
 
         this.props.onProgressChange && this.props.onProgressChange(progress);
     }
