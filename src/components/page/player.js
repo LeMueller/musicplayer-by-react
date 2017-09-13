@@ -8,8 +8,12 @@ export default class Player extends Component {
 
 	constructor(props){
 		super(props);
+		this.play=this.play.bind(this);
+		this.progressChangeHandler=this.progressChangeHandler.bind(this);
 		this.state={
-			progress:'-'
+			progress: 0,
+			volume: 0,
+			isPlay: true,
 		}
 	}
 
@@ -17,9 +21,10 @@ export default class Player extends Component {
 
 		$('#player').bind($.jPlayer.event.timeupdate,(e)=>{
 			duration = e.jPlayer.status.duration;//total duration of the song
-			this.setState({progress:e.jPlayer.status.currentPercentAbsolute});//how lange already played
+			this.setState({
+				volume: e.jPlayer.options.volume*100,
+				progress:e.jPlayer.status.currentPercentAbsolute});//how lange already played
 		});
-		//alert("palyer");
 	}
 
     componentWillUnMount(){
@@ -30,11 +35,30 @@ export default class Player extends Component {
 	//change progress
 	progressChangeHandler(progress){
 		//console.log("from root widget::: " + progress);
-		$('#player').jPlayer('play', duration * progress); //play调用了timeupdate，导致state更改，ui更改
+		if(this.state.isPlay){
+			$('#player').jPlayer('play', duration * progress); //play调用了timeupdate，导致state更改，ui更改
+		}else{
+			$('#player').jPlayer('play', duration * progress);
+			$('#player').jPlayer('pause');
+		}
+		
 	}
 	//change volume
 	volumeChangeHandler(progress){
-		
+		$('#player').jPlayer('volume', progress);
+	}
+
+	//play pause switcher
+	play(){
+		if(this.state.isPlay){
+			$('#player').jPlayer('pause');
+		}else{
+			$('#player').jPlayer('play');
+		}
+
+		this.setState({
+			isPlay: !this.state.isPlay,
+		})
 	}
 
 	render(){
@@ -51,8 +75,8 @@ export default class Player extends Component {
 								<i className="icon-volume rt"></i>
 								<div className="volume-wrapper">
 									<Progress 
-										progress="20%" 
-										onProgressChange={this.changeVolumeHandler}
+										progress={this.state.volume} 
+										onProgressChange={this.volumeChangeHandler}
 										barColor="#aaa"></Progress>
 								</div>
 							</div>
@@ -66,7 +90,7 @@ export default class Player extends Component {
 						<div className="mt35 row">
 							<div>
 								<i className="icon prev"></i>
-								<i className="icon ml20 play"></i>
+								<i className={`icon ml20 ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.play}></i>
 								<i className="icon next ml20"></i>
 							</div>
 							<div className="-col-auto">

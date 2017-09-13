@@ -29,7 +29,7 @@ export default class Progress extends Component {
         this.props.onProgressChange && this.props.onProgressChange(progress);
     }
 
-    //es6 语法 '${表达式}%'==表达式+'%'
+    //es6 语法 `${表达式}%`==表达式+'%'
     render() {
         return (
             <div className="component-progress row" ref="progressBar" onClick={this.changeProgress}>
