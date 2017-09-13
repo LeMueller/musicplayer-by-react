@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import Header from './commen/header.js';
 import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
+import MusicListUI from './page/musiclistui.js';
 
 export default class Root extends Component{
 	constructor(props){
 		super(props);
 		this.state={
+			musiclist: MUSIC_LIST,
 			currentMusicItem: MUSIC_LIST[0]
 		}
 	}
@@ -34,8 +36,11 @@ export default class Root extends Component{
 		return(
 			<div>
 				<Header />
-        		<Player currentMusicItem={this.state.currentMusicItem}></Player>
-
+				<MusicListUI 
+					currentMusicItem={this.state.currentMusicItem}
+					musiclist={this.state.musiclist}
+				></MusicListUI>
+				
         	</div>
 		)
 	}
