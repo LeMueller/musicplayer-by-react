@@ -3,6 +3,8 @@ import Header from './commen/header.js';
 import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
+import {HashRouter, Switch, Route, Link} from 'react-router-dom';
+
 
 export default class Root extends Component{
 	constructor(props){
@@ -11,9 +13,17 @@ export default class Root extends Component{
 			musiclist: MUSIC_LIST,
 			currentMusicItem: MUSIC_LIST[0]
 		}
+
+		this.render().PlayerUI=this.render().PlayerUI.bind(this);
+		this.render().ListUI=this.render().ListUI.bind(this);
+
+		//console.log("musiclist::: "+this.state.musiclist);
+		//console.log("cuerrentMusicItem:::+ " +this.state.cuerrentMusicItem);
 	}
 
 	componentDidMount(){
+		
+
 		$('#player').jPlayer({
 			ready:function(){
 				$(this).jPlayer('setMedia',{
@@ -32,16 +42,41 @@ export default class Root extends Component{
 		
 	}
 
+	
+
 	render(){
-		return(
+
+		const PlayerUI = () => (
+	        <Player
+		    	cuerrentMusicItem={this.state.cuerrentMusicItem}
+		    />
+		);
+
+		const ListUI = () => (
+		    <MusicList
+			    cuerrentMusicItem={this.state.cuerrentMusicItem}
+			    musicList={this.state.musicList}
+		    />
+		);
+
+		const MainUI = () => (
+			<Switch>
+				<Route exact path='/' component={PlayerUI}/>
+				<Route path='/list' component={ListUI}/>
+			</Switch>
+		)
+
+		const AppUI = () => (
 			<div>
 				<Header />
-				<MusicListUI 
-					currentMusicItem={this.state.currentMusicItem}
-					musiclist={this.state.musiclist}
-				></MusicListUI>
-				
-        	</div>
+				<MainUI />
+			</div>
+		)
+
+		return(
+			<HashRouter>
+				<AppUI />
+			</HashRouter>
 		)
 	}
 }
