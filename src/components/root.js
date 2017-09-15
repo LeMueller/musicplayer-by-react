@@ -3,7 +3,9 @@ import Header from './commen/header.js';
 import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
-import {HashRouter, Route, Link, Switch} from 'react-router-dom';
+
+import {HashRouter, Switch, Route, Link} from 'react-router-dom';
+
 
 class MusicApp extends Component{
 	constructor(props){
@@ -15,6 +17,8 @@ class MusicApp extends Component{
 	}
 
 	componentDidMount(){
+		
+
 		$('#player').jPlayer({
 			ready:function(){
 				$(this).jPlayer('setMedia',{
@@ -28,7 +32,6 @@ class MusicApp extends Component{
 
 	}
 
-	
 	componentWillUnMount(){
 		
 	}
