@@ -14,8 +14,10 @@ export default class Root extends Component{
 			currentMusicItem: MUSIC_LIST[0]
 		}
 
-		this.render().PlayerUI=this.render().PlayerUI.bind(this);
-		this.render().ListUI=this.render().ListUI.bind(this);
+		alert(this.PlayerUI);
+
+		this.PlayerUI=this.PlayerUI.bind(this);
+		this.ListUI=this.ListUI.bind(this);
 
 		//console.log("musiclist::: "+this.state.musiclist);
 		//console.log("cuerrentMusicItem:::+ " +this.state.cuerrentMusicItem);
@@ -41,35 +43,37 @@ export default class Root extends Component{
 		
 	}
 
+	PlayerUI = () => (
+        <Player
+	    	cuerrentMusicItem={this.state.cuerrentMusicItem}
+	    />
+	);
+
+	ListUI = () => (
+	    <MusicList
+		    cuerrentMusicItem={this.state.cuerrentMusicItem}
+		    musicList={this.state.musicList}
+	    />
+	);
+
+	MainUI = () => (
+		<Switch>
+			<Route exact path='/' component={PlayerUI}/>
+			<Route path='/list' component={ListUI}/>
+		</Switch>
+	)
+
+	AppUI = () => (
+		<div>
+			<Header />
+			<MainUI />
+		</div>
+	)
+
 
 	render(){
 
-		const PlayerUI = () => (
-	        <Player
-		    	cuerrentMusicItem={this.state.cuerrentMusicItem}
-		    />
-		);
-
-		const ListUI = () => (
-		    <MusicList
-			    cuerrentMusicItem={this.state.cuerrentMusicItem}
-			    musicList={this.state.musicList}
-		    />
-		);
-
-		const MainUI = () => (
-			<Switch>
-				<Route exact path='/' component={PlayerUI}/>
-				<Route path='/list' component={ListUI}/>
-			</Switch>
-		)
-
-		const AppUI = () => (
-			<div>
-				<Header />
-				<MainUI />
-			</div>
-		)
+		
 
 		return(
 			<HashRouter>
