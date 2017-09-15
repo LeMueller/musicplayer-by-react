@@ -37,12 +37,10 @@ export default class Root extends Component{
 
 	}
 
-	
 	componentWillUnMount(){
 		
 	}
 
-	
 
 	render(){
 
