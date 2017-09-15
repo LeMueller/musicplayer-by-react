@@ -3,8 +3,9 @@ import Header from './commen/header.js';
 import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
+import {HashRouter, Route, Link, Switch} from 'react-router-dom';
 
-export default class Root extends Component{
+class MusicApp extends Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -35,13 +36,25 @@ export default class Root extends Component{
 	render(){
 		return(
 			<div>
-				<Header />
-				<MusicListUI 
-					currentMusicItem={this.state.currentMusicItem}
-					musiclist={this.state.musiclist}
-				></MusicListUI>
-				
+				{React.cloneElement(this.props.children, this.state)}				
         	</div>
 		)
 	}
+}
+
+export default class Root extends Component{
+	render(){
+		return(
+			<HashRouter>
+				<div>
+					<Header/>
+					<Route exact path="/" component={MusicApp}>
+						<Route exact path="/" component={Player }></Route>
+						<Route path="/list" component={MusicListUI}></Route>
+					</Route>
+				</div>
+				
+			</HashRouter>
+		)
+	}	
 }
