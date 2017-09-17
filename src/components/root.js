@@ -4,7 +4,7 @@ import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
 
-import {HashRouter, Switch, Route, Link} from 'react-router-dom';
+import {HashRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 
 class MusicApp extends Component{
@@ -35,7 +35,7 @@ class MusicApp extends Component{
 	componentWillUnMount(){
 		
 	}
-
+/**Router V3
 	render(){
 		return(
 			<div>
@@ -43,9 +43,30 @@ class MusicApp extends Component{
         	</div>
 		)
 	}
+**/
+
+	render(){
+		return(
+			//<div>
+				//{React.cloneElement(this.props.children, this.state)}				
+
+        	//</div>
+
+        	<Router>
+        		<Route path="/" render={(props)=>(
+        			<Switch>        				
+        				<Player path='/'  currentMusicItem={props.currentMusicItem}/>
+        				<MusicListUI path='/playliset' currentMusicItem={props.currentMusicItem} musiclist={props.musiclist}/>
+        			</Switch>
+        		)}/>
+        	</Router>
+		)
+	}
 }
 
 export default class Root extends Component{
+
+/**Router V3
 	render(){
 		return(
 			<HashRouter>
@@ -59,5 +80,15 @@ export default class Root extends Component{
 				
 			</HashRouter>
 		)
-	}	
+	}
+**/
+
+render(){
+		return(
+				<div>
+					<Header/>					
+					<MusicApp/>					
+				</div>
+		)
+	}
 }

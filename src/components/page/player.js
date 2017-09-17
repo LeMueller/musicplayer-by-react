@@ -68,7 +68,7 @@ export default class Player extends Component {
 				<div className="mt20 row">
 					<div className = "controll-wrapper">
 						<h2 className="music-title">{this.props.currentMusicItem.title}</h2>
-						<h3 className="music-artist mt10">{this.props.currentMusicItem.artist}</h3>
+						<h3 className="music-artist mt10">{props.currentMusicItem.artist}</h3>
 						<div className="row mt20">
 							<div className="left-time -col-auto">-2:00</div>
 							<div className="volume-container">
