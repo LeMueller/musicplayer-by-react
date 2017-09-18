@@ -4,10 +4,10 @@ import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
 
-import {HashRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 
-class MusicApp extends Component{
+export default class Root extends Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -46,27 +46,39 @@ class MusicApp extends Component{
 **/
 
 	render(){
+
+		const Home=() => (
+			<Player
+				currentMusicItem={this.state.currentMusicItem}
+			/>
+		);
+
+		const List = () => (
+			<MusicListUI
+				currentMusicItem={this.state.currentMusicItem}
+				musiclist={this.state.musiclist}
+			/>
+		);
+
 		return(
-			//<div>
-				//{React.cloneElement(this.props.children, this.state)}				
-
-        	//</div>
-
-        	<Router>
-        		<Route path="/" render={(props)=>(
-        			<Switch>        				
-        				<Player path='/'  currentMusicItem={props.currentMusicItem}/>
-        				<MusicListUI path='/playliset' currentMusicItem={props.currentMusicItem} musiclist={props.musiclist}/>
-        			</Switch>
-        		)}/>
-        	</Router>
+			<Router>
+				<div>
+					<Header/>
+					<Switch>
+						<Route exact path="/" component={Home}/>
+						<Route path="/list" component={List}/>
+					</Switch>
+				</div>
+			</Router>	
 		)
 	}
 }
 
+
+/**
 export default class Root extends Component{
 
-/**Router V3
+Router V3
 	render(){
 		return(
 			<HashRouter>
@@ -82,13 +94,3 @@ export default class Root extends Component{
 		)
 	}
 **/
-
-render(){
-		return(
-				<div>
-					<Header/>					
-					<MusicApp/>					
-				</div>
-		)
-	}
-}

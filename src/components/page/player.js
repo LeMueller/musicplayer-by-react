@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../../styles/player.less';
 import Progress from '../commen/progress.js';
+import {Link} from 'react-router-dom';
 
 let duration = null;
 
@@ -64,11 +65,13 @@ export default class Player extends Component {
 	render(){
 		return(
 			<div className="player-page">
-				<h1 className="caption">My Favorite Music</h1>
+				<h1 className="caption">
+					<Link to="/list">My Favorite Music</Link>
+				</h1>
 				<div className="mt20 row">
 					<div className = "controll-wrapper">
 						<h2 className="music-title">{this.props.currentMusicItem.title}</h2>
-						<h3 className="music-artist mt10">{props.currentMusicItem.artist}</h3>
+						<h3 className="music-artist mt10">{this.props.currentMusicItem.artist}</h3>
 						<div className="row mt20">
 							<div className="left-time -col-auto">-2:00</div>
 							<div className="volume-container">
