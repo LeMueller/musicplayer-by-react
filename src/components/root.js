@@ -4,6 +4,8 @@ import Player from './page/player.js';
 import {MUSIC_LIST} from '../config/musiclist';
 import MusicListUI from './page/musiclistui.js';
 
+import Pubsub from 'pubsub-js';
+
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 
@@ -12,24 +14,83 @@ export default class Root extends Component{
 		super(props);
 		this.state={
 			musiclist: MUSIC_LIST,
-			currentMusicItem: MUSIC_LIST[0]
+			currentMusicItem: MUSIC_LIST[4]
 		}
+
+		this.playMusic=this.playMusic.bind(this);
+		this.playNext=this.playNext.bind(this);
+		this.findMusicIndex=this.findMusicIndex.bind(this);
+	}
+
+	playMusic(musicItem){
+		$('#player').jPlayer('setMedia',{
+			mp3: musicItem.file
+		}).jPlayer('play');
+
+		this.setState({
+			currentMusicItem: musicItem
+		})
+	}
+
+	playNext(type="next"){
+		let index = this.findMusicIndex(this.state.currentMusicItem);
+		let newIndex=null;
+		let musiclistLength = this.state.musiclist.length;
+		if(type==='next'){
+			newIndex = (index+1) % musiclistLength;
+		}else{
+			newIndex = (index-1 + musiclistLength) % musiclistLength;
+		}
+
+		this.playMusic(this.state.musiclist[newIndex]);
+	}
+
+	findMusicIndex(musicItem){
+		return this.state.musiclist.indexOf(musicItem);
 	}
 
 	componentDidMount(){
-		
-
 		$('#player').jPlayer({
-			ready:function(){
-				$(this).jPlayer('setMedia',{
-					mp3:'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3'
-				}).jPlayer('play');
-			},
 			supplied:'mp3',
 			wmode: 'window'
 		});
 
+		this.playMusic(this.state.currentMusicItem);
 
+		$('#player').bind($.jPlayer.event.ended, (e)=>{
+			this.playNext();
+		})
+
+		Pubsub.subscribe('DELETE_MUSIC', (msg, musicItem)=>{
+			this.setState({
+				musiclist:this.state.musiclist.filter(item=>{
+					return item != musicItem
+				})
+			})
+		});
+
+		Pubsub.subscribe('PLAY_MUSIC', (msg, musicItem)=>{
+			this.playMusic(musicItem);
+		});
+
+		Pubsub.subscribe('PLAY_PREV', (msg, musicItem)=>{
+			this.playNext('prev');
+		});
+
+		Pubsub.subscribe('PLAY_NEXT', (msg, musicItem)=>{
+			this.playNext('next');
+		});
+
+
+
+	}
+
+	componentWillUnmount(){
+		Pubsub.unsubscribe('PLAY_MUSIC');
+		Pubsub.unsubscribe('PLAY_MUSIC');
+		$('#player').unbind($.jpalyer.event.ended);
+		Pubsub.unsubscribe('PLAY_PREV');
+		Pubsub.unsubscribe('PLAY_NEXT');
 	}
 
 /**Router V3

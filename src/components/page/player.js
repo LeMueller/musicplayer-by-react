@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../../styles/player.less';
 import Progress from '../commen/progress.js';
 import {Link} from 'react-router-dom';
+import Pubsub from 'pubsub-js';
 
 let duration = null;
 
@@ -19,6 +20,16 @@ export default class Player extends Component {
 		this.play=this.play.bind(this);
 		this.progressChangeHandler=this.progressChangeHandler.bind(this);
 		this.volumeChangeHandler=this.volumeChangeHandler.bind(this);
+		this.playPrev=this.playPrev.bind(this);
+		this.playNext=this.playNext.bind(this);
+	}
+
+	playPrev(){
+		Pubsub.publish('PLAY_PREV');
+	};
+
+	playNext(){
+		Pubsub.publish('PLAY_NEXT');
 	}
 
 	componentDidMount(){
@@ -96,9 +107,9 @@ export default class Player extends Component {
 						</div>
 						<div className="mt35 row">
 							<div>
-								<i className="icon prev"></i>
+								<i className="icon prev" onClick={this.playPrev}></i>
 								<i className={`icon ml20 ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.play}></i>
-								<i className="icon next ml20"></i>
+								<i className="icon next ml20" onClick={this.playNext}></i>
 							</div>
 							<div className="-col-auto">
 								<i className="icon repeat-cycle"></i>
