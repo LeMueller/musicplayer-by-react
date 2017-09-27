@@ -32,9 +32,6 @@ export default class Root extends Component{
 
 	}
 
-	componentWillUnMount(){
-		
-	}
 /**Router V3
 	render(){
 		return(

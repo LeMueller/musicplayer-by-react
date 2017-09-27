@@ -9,13 +9,16 @@ export default class Player extends Component {
 
 	constructor(props){
 		super(props);
-		this.play=this.play.bind(this);
-		this.progressChangeHandler=this.progressChangeHandler.bind(this);
+		
 		this.state={
 			progress: 0,
 			volume: 0,
 			isPlay: true,
-		}
+		},
+
+		this.play=this.play.bind(this);
+		this.progressChangeHandler=this.progressChangeHandler.bind(this);
+		this.volumeChangeHandler=this.volumeChangeHandler.bind(this);
 	}
 
 	componentDidMount(){
@@ -24,11 +27,12 @@ export default class Player extends Component {
 			duration = e.jPlayer.status.duration;//total duration of the song
 			this.setState({
 				volume: e.jPlayer.options.volume*100,
-				progress:e.jPlayer.status.currentPercentAbsolute});//how lange already played
+				progress:e.jPlayer.status.currentPercentAbsolute
+			});//how lange already played
 		});
 	}
 
-    componentWillUnMount(){
+    componentWillUnmount(){
 		$('#player').unbind($.jPlayer.event.timeupdate);
 	}
 
@@ -36,12 +40,12 @@ export default class Player extends Component {
 	//change progress
 	progressChangeHandler(progress){
 		//console.log("from root widget::: " + progress);
-		if(this.state.isPlay){
+		//if(this.state.isPlay){
 			$('#player').jPlayer('play', duration * progress); //play调用了timeupdate，导致state更改，ui更改
-		}else{
-			$('#player').jPlayer('play', duration * progress);
-			$('#player').jPlayer('pause');
-		}
+		//}else{
+		//	$('#player').jPlayer('play', duration * progress);
+		//	$('#player').jPlayer('pause');
+		//}
 		
 	}
 	//change volume
