@@ -86,7 +86,7 @@ export default class Root extends Component{
 	}
 
 	componentWillUnmount(){
-		Pubsub.unsubscribe('PLAY_MUSIC');
+		Pubsub.unsubscribe('DELETE_MUSIC');
 		Pubsub.unsubscribe('PLAY_MUSIC');
 		$('#player').unbind($.jpalyer.event.ended);
 		Pubsub.unsubscribe('PLAY_PREV');
