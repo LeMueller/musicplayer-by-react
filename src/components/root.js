@@ -8,6 +8,9 @@ import Pubsub from 'pubsub-js';
 
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
+require('../styles/css/commen.css');
+require('../styles/css/reset.css');
+ 
 export default class Root extends Component{
 	constructor(props){
 		super(props);
